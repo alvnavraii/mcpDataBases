@@ -1,5 +1,8 @@
 # 🗄️ DataBase Project (PostgreSQL & SQLite Management)
 
+> ⚡ There is an alternative version of this project with Server-Sent Events (SSE) support:
+> [mcpDataBasesSSE on GitHub](https://github.com/alvnavraii/mcpDataBasesSSE)
+
 This project is designed to manage and migrate data between PostgreSQL and SQLite databases, making it easier to perform CRUD operations and administration for applications that require flexibility between database engines.
 
 ## 📁 Main Structure
