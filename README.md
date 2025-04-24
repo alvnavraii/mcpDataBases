@@ -1,63 +1,63 @@
 # DataBase Project (PostgreSQL & SQLite Management)
 
-Este proyecto está diseñado para gestionar y migrar datos entre bases de datos PostgreSQL y SQLite, facilitando la administración y operaciones CRUD para aplicaciones que requieran flexibilidad entre motores de base de datos.
+This project is designed to manage and migrate data between PostgreSQL and SQLite databases, making it easier to perform CRUD operations and administration for applications that require flexibility between database engines.
 
-## Estructura principal
-- **main.py**: Servidor MCP con herramientas para consultar, insertar, actualizar, eliminar y modificar tablas en la base de datos PostgreSQL.
-- **connection.py**: Gestiona la conexión a la base de datos PostgreSQL.
-- **migrate_postgres_to_sqlite.py**: Script para migrar todas las tablas y sus datos de PostgreSQL a SQLite.
-- **ecommerce.db**: Base de datos SQLite generada a partir de la migración (opcional).
+## Main Structure
+- **main.py**: MCP server with tools to query, insert, update, delete, and modify tables in the PostgreSQL database.
+- **connection.py**: Manages the connection to the PostgreSQL database.
+- **migrate_postgres_to_sqlite.py**: Script to migrate all tables and their data from PostgreSQL to SQLite.
+- **ecommerce.db**: SQLite database generated from the migration (optional).
 
-## Funcionalidad
-- **Operaciones CRUD**: Crea, lee, actualiza y elimina registros en las tablas de la base de datos PostgreSQL.
-- **Gestión de tablas**: Permite crear, alterar y eliminar tablas fácilmente.
-- **Migración de datos**: Transfiere la estructura y los datos entre PostgreSQL y SQLite de forma automática.
-- **Consultas avanzadas**: Ejecuta consultas SQL personalizadas para análisis o mantenimiento.
+## Features
+- **CRUD operations**: Create, read, update, and delete records in PostgreSQL database tables.
+- **Table management**: Easily create, alter, and drop tables.
+- **Data migration**: Automatically transfer structure and data between PostgreSQL and SQLite.
+- **Advanced queries**: Run custom SQL queries for analysis or maintenance.
 
-## Ejemplos de uso
+## Usage Examples
 
-### 1. Servidor MCP (`main.py`)
-- Ejecuta el servidor MCP para exponer herramientas de gestión de la base de datos:
+### 1. MCP Server (`main.py`)
+- Run the MCP server to expose database management tools:
   ```bash
   python3 main.py
   ```
-- Herramientas disponibles:
-  - `query_db(query)`: Ejecuta consultas SELECT y devuelve resultados.
-  - `insert_db(query)`: Ejecuta INSERTS.
-  - `update_db(query)`: Ejecuta UPDATES.
-  - `delete_db(query)`: Ejecuta DELETES.
-  - `create_table(query)`: Ejecuta CREATE TABLE.
-  - `alter_table(query)`: Ejecuta ALTER TABLE.
-  - `drop_table(query)`: Ejecuta DROP TABLE.
+- Available tools:
+  - `query_db(query)`: Executes SELECT queries and returns results.
+  - `insert_db(query)`: Executes INSERT statements.
+  - `update_db(query)`: Executes UPDATE statements.
+  - `delete_db(query)`: Executes DELETE statements.
+  - `create_table(query)`: Executes CREATE TABLE statements.
+  - `alter_table(query)`: Executes ALTER TABLE statements.
+  - `drop_table(query)`: Executes DROP TABLE statements.
 
-### 2. Migración de datos entre bases de datos
-- Ejecuta el script de migración para copiar todas las tablas y datos de PostgreSQL a SQLite:
+### 2. Data migration between databases
+- Run the migration script to copy all tables and data from PostgreSQL to SQLite:
   ```bash
   python3 migrate_postgres_to_sqlite.py
   ```
-- Puedes adaptar el script para migrar datos en ambos sentidos o entre diferentes esquemas.
+- You can adapt the script to migrate data in both directions or between different schemas.
 
-### 3. Ejemplos de operaciones CRUD
-- **Crear un registro:**
+### 3. CRUD operation examples
+- **Create a record:**
   ```sql
-  INSERT INTO users (email, password) VALUES ('usuario@dominio.com', 'secreto');
+  INSERT INTO users (email, password) VALUES ('user@domain.com', 'secret');
   ```
-- **Leer registros:**
+- **Read records:**
   ```sql
   SELECT * FROM products WHERE is_active = TRUE;
   ```
-- **Actualizar registros:**
+- **Update records:**
   ```sql
-  UPDATE categories SET name = 'Nuevas Tecnologías' WHERE id = 1;
+  UPDATE categories SET name = 'New Technologies' WHERE id = 1;
   ```
-- **Eliminar registros:**
+- **Delete records:**
   ```sql
   DELETE FROM carts WHERE created_at < '2024-01-01';
   ```
 
-## Configuración de MCP (mcp_config.json o claude_desktop_config.json)
+## MCP Configuration (`mcp_config.json` or `claude_desktop_config.json`)
 
-Para que las herramientas MCP funcionen correctamente, debes definir cada servicio en tu archivo de configuración (por ejemplo, `~/.codeium/windsurf/mcp_config.json` o `~/.config/Claude/claude_desktop_config.json`). Ejemplo:
+To ensure MCP tools work properly, define each service in your configuration file (e.g., `~/.codeium/windsurf/mcp_config.json` or `~/.config/Claude/claude_desktop_config.json`). Example:
 
 ```json
 {
@@ -74,30 +74,28 @@ Para que las herramientas MCP funcionen correctamente, debes definir cada servic
     "args": [
       "/home/slendy/MCPProjects/DataBase/main.py",
       "--engine", "postgresql",
-      "--url", "postgresql://usuario:contraseña@localhost:5432/ecommerce"
+      "--url", "postgresql://user:password@localhost:5432/ecommerce"
     ]
   }
 }
 ```
 
-- Cambia las rutas, credenciales y puertos según tu entorno.
-- Por defecto, PostgreSQL utiliza el puerto 5432. Si ya tienes una base de datos en ese puerto, puedes especificar otro (por ejemplo, 5433).
-- No incluyas contraseñas reales en el archivo de configuración; reemplaza `usuario` y `contraseña` por los valores adecuados.
-- Puedes añadir más servicios para otros motores o bases de datos.
-- El nombre del bloque (ej: `SqliteManagement`) será el identificador de la herramienta MCP.
+- Change the paths, credentials, and ports according to your environment.
+- By default, PostgreSQL uses port 5432. If you already have a database on that port, you can specify another (e.g., 5433).
+- Do not include real passwords in the configuration file; replace `user` and `password` with the appropriate values.
+- You can add more services for other engines or databases.
+- The block name (e.g., `SqliteManagement`) will be the MCP tool identifier.
 
-## Dependencias
-- Python 3.8+ 
+## Dependencies
+- Python 3.8+
 - psycopg2-binary
 - sqlite3
-- PostgreSQL (servidor y base de datos configurada)
+- PostgreSQL (server and configured database)
 
-## Notas
-- Asegúrate de configurar correctamente los servicios MCP en tu archivo `mcp_config.json` (o `claude_desktop_config.json`) siguiendo el ejemplo anterior.
-- Configura también las credenciales de conexión en `connection.py` según tu entorno y base de datos.
-- Tras cambios en la estructura de la base de datos, reinicia el servidor MCP para evitar problemas de conexión.
-- Puedes adaptar los scripts para migrar o gestionar otros catálogos según tus necesidades.
+## Notes
+- Make sure to properly configure the MCP services in your `mcp_config.json` (or `claude_desktop_config.json`) file following the example above.
+- Also configure the connection credentials in `connection.py` according to your environment and database.
+- After changes to the database structure, restart the MCP server to avoid connection issues.
+- You can adapt the scripts to migrate or manage other catalogs as needed.
 
 ---
-
-¿Dudas o sugerencias? ¡No dudes en consultar o proponer mejoras! 
